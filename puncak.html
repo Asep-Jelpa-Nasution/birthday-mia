@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Puncak | Selamat Ulang Tahun Mia! 🏔️</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="mountain-bg puncak-bg">
+      <div class="sky-puncak"></div>
+      <div class="mountain-back-puncak"></div>
+      <div class="mountain-mid-puncak"></div>
+      <div class="mountain-front-puncak"></div>
+      <div class="snow"></div>
+      <div class="sunrise-glow"></div>
+    </div>
+
+    <div class="container puncak-container">
+      <div class="elevation-badge">🏔️ PUNCAK • 3.000 mdpl • 🌅 fajar</div>
+
+      <div class="puncak-header">
+        <div class="sunrise animate-sun">🌅</div>
+        <h1>Selamat Ulang Tahun<br /><span class="name-large">Mia</span></h1>
+        <div class="age-badge">✨ 24 tahun ✨</div>
+      </div>
+
+      <div class="letter-card glass-card">
+        <div class="envelope-icon">✉️</div>
+        <p class="letter-text" id="letterText">
+          Surat buat Mia
+        </p>
+        <div class="letter-placeholder">
+          <em
+            >Lu udah sampai di puncak nih Mi, yaeyyy. Terima kasih sudah menjadi Mia yang
+            hangat seperti matahari pagi di basecamp. Semoga tahun ini membawa lu
+            ke tempat-tempat indah—baik yang nyata di peta, maupun yang ada di
+            hatimu, eaaa. Selamat mendaki usia baru!"</em
+          >
+        </div>
+        <div class="signature">
+        </div>
+      </div>
+
+      <div class="cake-section glass-card">
+        <div class="cake">
+            <div class="cake-flame" id="cakeFlame">🔥</div>
+          <div class="cake-body">🎂</div>
+        </div>
+        <div class="blow-instruction">✨ sentuh api lilin untuk meniup ✨</div>
+        <div id="blowMessage" class="blow-message hidden">
+          <span>🎉🎉🎉</span>
+          <p>Selamat, Mia! Semua harapanmu mengabul di usia 24.</p>
+          <span>🏔️✨🌄</span>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a href="pos3.html" class="btn-secondary">← Pos 3</a>
+        
+      </div>
+      <div class="footprints">🐾 🐾 🐾 • puncak tercapai! • 🐾 🐾 🐾</div>
+    </div>
+
+    <script>
+      // ========== GENERATE BINTANG UNTUK BACKGROUND ==========
+      function generateStars() {
+        const starsLayer = document.getElementById("starsLayer");
+        if (starsLayer) {
+          for (let i = 0; i < 150; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 60 + "%";
+            star.style.width = Math.random() * 3 + 1 + "px";
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + "s";
+            star.style.animationDuration = Math.random() * 2 + 1 + "s";
+            starsLayer.appendChild(star);
+          }
+        }
+      }
+
+      // Animasi fade-in saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", () => {
+        generateStars();
+
+        const containers = document.querySelectorAll(".container");
+        containers.forEach((container) => {
+          container.style.opacity = "0";
+          container.style.animation = "fadeIn 0.8s ease forwards";
+        });
+      });
+
+      // Style untuk animasi fade-in
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+
+      // ========== TIUP LILIN -> PINDAH KE HALAMAN BUNGA ==========
+      const cakeFlame = document.getElementById("cakeFlame");
+      let isBlown = false;
+
+      if (cakeFlame) {
+        cakeFlame.addEventListener("click", function (e) {
+          e.stopPropagation();
+
+          if (!isBlown) {
+            isBlown = true;
+
+            // Efek visual: api padam
+            this.classList.add("blown-out");
+            this.innerHTML = "💨";
+
+            // Efek getar (kalau HP support)
+            if (navigator.vibrate) {
+              navigator.vibrate(50);
+            }
+
+            // PINDAH KE HALAMAN BUNGA setelah 300ms
+            setTimeout(() => {
+              window.location.href = "bunga.html";
+            }, 300);
+          }
+        });
+
+        // Efek hover untuk desktop
+        cakeFlame.addEventListener("mouseenter", () => {
+          if (!isBlown) {
+            cakeFlame.style.transform = "scale(1.1)";
+          }
+        });
+
+        cakeFlame.addEventListener("mouseleave", () => {
+          cakeFlame.style.transform = "scale(1)";
+        });
+      }
+    </script>
+  </body>
+</html>

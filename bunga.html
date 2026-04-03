@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>🎆 Untuk Mia | Bunga & Kembang Api</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Background gradien malam */
+      .fireworks-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          #0a0a2a 0%,
+          #1a1a3a 30%,
+          #2a1a3a 60%,
+          #1a0a2a 100%
+        );
+        z-index: 0;
+      }
+
+      /* Bintang */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
+      }
+
+      @keyframes twinkle {
+        0% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Konten utama */
+      .bunga-container {
+        position: relative;
+        z-index: 15;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .bunga-card {
+        text-align: center;
+        max-width: 90%;
+        width: 450px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(20px);
+        border-radius: 32px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        animation: fadeInUp 0.8s ease;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .bunga-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .bunga-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+        color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .name-large {
+        font-size: 2rem;
+        background: linear-gradient(135deg, #fff0cc, #ffdd99);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .bunga-message {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 1rem 0;
+        color: white;
+        font-family: "Caveat", cursive;
+      }
+
+      .bunga-footer {
+        font-size: 0.8rem;
+        opacity: 0.8;
+        margin-top: 1rem;
+        color: white;
+      }
+
+      .btn-kembali {
+        margin-top: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        background: linear-gradient(135deg, #ffb347, #ff8c1a);
+        padding: 0.7rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        color: #2c2b26;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-kembali:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Canvas untuk bunga & kembang api */
+      #flowerCanvas {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive untuk HP kecil */
+      @media (max-width: 600px) {
+        .bunga-card {
+          padding: 1.2rem;
+          max-width: 85%;
+        }
+        .bunga-title {
+          font-size: 1.3rem;
+        }
+        .name-large {
+          font-size: 1.6rem;
+        }
+        .bunga-message {
+          font-size: 0.9rem;
+        }
+        .bunga-icon {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .bunga-card {
+          padding: 1rem;
+          max-width: 90%;
+        }
+        .bunga-title {
+          font-size: 1.1rem;
+        }
+        .name-large {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fireworks-bg"></div>
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="container bunga-container">
+      <div class="bunga-card">
+        <div class="bunga-icon">🎆🌸🎂🏔️</div>
+        <h1 class="bunga-title">
+          Selamat Ulang Tahun, <br /><span class="name-large">Mia</span>!
+        </h1>
+        <p class="bunga-message">
+          Hari ini, saya langitkan semua doa terbaik saya untuk kamu. Semoga hal-hal yang membuat kamu runtuh turut menjadi alasan kamu untuk tumbuh<br />
+          Semoga dunia senantiasa menjaga kamu di mana pun kamu berada. Semoga hari-hari kamu selalu diiringi cinta yang tidak pernah ada batasnya.<br />
+          Dan semoga, senyum kedua orang tua kamu yang selalu kamu usahakan itu kini sudah terlaksana.<br />
+          🎆✨🌸
+        </p>
+        <p class="bunga-footer">
+          — Dari gua yang selalu berusaha mendukung apapun hal baik di hidupmu —
+        </p>
+
+        <a href="index.html" class="btn-kembali">
+          <span>🏔️ kembali ke basecamp</span>
+        </a>
+      </div>
+    </div>
+
+    <canvas id="flowerCanvas"></canvas>
+
+    <script>
+      // ========== BINTANG ==========
+      const starsContainer = document.getElementById("starsContainer");
+      for (let i = 0; i < 120; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 70 + "%";
+        star.style.width = Math.random() * 3 + 1 + "px";
+        star.style.height = star.style.width;
+        star.style.animationDelay = Math.random() * 3 + "s";
+        star.style.animationDuration = Math.random() * 2 + 1 + "s";
+        starsContainer.appendChild(star);
+      }
+
+      // ========== SETUP CANVAS ==========
+      const canvas = document.getElementById("flowerCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+      resizeCanvas();
+
+      // ========== BUNGA KIRI & KANAN (RESPONSIVE) ==========
+      // Posisi menggunakan persentase, selalu update saat resize
+      let leftFlowerX = width * 0.08; // 8% dari kiri
+      let rightFlowerX = width * 0.92; // 92% dari kiri
+
+      let growProgress = 0;
+      let swayAngle = 0;
+      let swayDirection = 1;
+
+      // Ukuran bunga & batang berdasarkan lebar layar
+      let stemHeight = height * 0.5;
+      let flowerSize = Math.min(32, width * 0.08);
+
+      const leftFlowerColor = "#ff88aa";
+      const rightFlowerColor = "#ffaa77";
+
+      function updateSizes() {
+        stemHeight = height * 0.5;
+        flowerSize = Math.min(32, width * 0.08);
+        leftFlowerX = width * 0.08;
+        rightFlowerX = width * 0.92;
+      }
+
+      // Fungsi menggambar tangkai bunga
+      function drawStem(x, progress, sway, isLeft) {
+        const currentStemHeight = stemHeight;
+        const startY = height;
+        const endY = height - currentStemHeight * progress;
+
+        ctx.save();
+        ctx.translate(x, 0);
+        const curveDirection = isLeft ? 1 : -1;
+        ctx.rotate(sway * 0.05 * curveDirection);
+
+        // Batang
+        ctx.beginPath();
+        ctx.moveTo(0, startY);
+        ctx.quadraticCurveTo(
+          curveDirection * 12 * sway,
+          startY - currentStemHeight * 0.3,
+          0,
+          endY,
+        );
+        ctx.lineWidth = Math.max(3, Math.min(5, width * 0.012));
+        ctx.strokeStyle = "#4a8c3f";
+        ctx.stroke();
+
+        // Daun (hanya jika progress cukup)
+        if (progress > 0.3) {
+          const leafY = startY - currentStemHeight * 0.4 * progress;
+          const leafDirection = isLeft ? -1 : 1;
+          ctx.beginPath();
+          ctx.moveTo(leafDirection * 4, leafY);
+          ctx.quadraticCurveTo(
+            leafDirection * 18,
+            leafY - 10,
+            leafDirection * 22,
+            leafY,
+          );
+          ctx.quadraticCurveTo(
+            leafDirection * 12,
+            leafY + 5,
+            leafDirection * 4,
+            leafY,
+          );
+          ctx.fillStyle = "#5cad4a";
+          ctx.fill();
+        }
+
+        ctx.restore();
+
+        return { x: x, y: height - currentStemHeight * progress };
+      }
+
+      // Fungsi menggambar bunga
+      function drawFlower(x, y, progress, sway, color, isLeft) {
+        if (progress < 0.6) return;
+
+        const flowerProgress = (progress - 0.6) / 0.4;
+        const currentFlowerSize = flowerSize * Math.min(1, flowerProgress);
+
+        ctx.save();
+        ctx.translate(x, y);
+        const swayDirection = isLeft ? 1 : -1;
+        ctx.rotate(sway * 0.08 * swayDirection);
+
+        // 5 kelopak
+        for (let i = 0; i < 5; i++) {
+          const angle = ((i * 72 + sway * 10) * Math.PI) / 180;
+          const petalX = Math.cos(angle) * currentFlowerSize * 0.7;
+          const petalY = Math.sin(angle) * currentFlowerSize * 0.7;
+
+          ctx.beginPath();
+          ctx.ellipse(
+            petalX,
+            petalY,
+            currentFlowerSize * 0.55,
+            currentFlowerSize * 0.75,
+            angle,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fillStyle = color;
+          ctx.fill();
+          ctx.strokeStyle = "#dd5599";
+          ctx.lineWidth = Math.max(0.5, currentFlowerSize * 0.03);
+          ctx.stroke();
+        }
+
+        // Pusat bunga
+        ctx.beginPath();
+        ctx.arc(0, 0, currentFlowerSize * 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffdd88";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(0, 0, currentFlowerSize * 0.18, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffaa44";
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // ========== KEMBANG API ==========
+      let fireworks = [];
+
+      class Firework {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.particles = [];
+          this.exploded = false;
+
+          this.colors = [
+            "#ff4444",
+            "#ff8844",
+            "#ffdd44",
+            "#44ff44",
+            "#44ffdd",
+            "#4488ff",
+            "#dd44ff",
+            "#ff44dd",
+            "#ffffff",
+          ];
+        }
+
+        explode() {
+          if (this.exploded) return;
+          this.exploded = true;
+
+          const particleCount = 30 + Math.random() * 25;
+          const mainColor =
+            this.colors[Math.floor(Math.random() * this.colors.length)];
+
+          for (let i = 0; i < particleCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 1.5 + Math.random() * 5;
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed;
+
+            this.particles.push({
+              x: this.x,
+              y: this.y,
+              vx: vx,
+              vy: vy,
+              size: 2 + Math.random() * 4,
+              color: mainColor,
+              opacity: 1,
+              life: 1,
+              fadeSpeed: 0.015 + Math.random() * 0.012,
+            });
+          }
+
+          for (let i = 0; i < 12; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 0.8 + Math.random() * 3.5;
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed;
+
+            this.particles.push({
+              x: this.x,
+              y: this.y,
+              vx: vx,
+              vy: vy,
+              size: 1.5 + Math.random() * 3,
+              color:
+                this.colors[Math.floor(Math.random() * this.colors.length)],
+              opacity: 1,
+              life: 1,
+              fadeSpeed: 0.02 + Math.random() * 0.015,
+            });
+          }
+        }
+
+        update() {
+          if (!this.exploded) return false;
+
+          let allDead = true;
+          for (let p of this.particles) {
+            if (p.life > 0) {
+              allDead = false;
+              p.x += p.vx;
+              p.y += p.vy;
+              p.vy += 0.08;
+              p.life -= p.fadeSpeed;
+              p.opacity = p.life;
+            }
+          }
+
+          return !allDead;
+        }
+
+        draw() {
+          if (!this.exploded) return;
+
+          for (let p of this.particles) {
+            if (p.life > 0) {
+              ctx.globalAlpha = p.opacity * 0.8;
+              ctx.fillStyle = p.color;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+              ctx.fill();
+
+              ctx.globalAlpha = p.opacity * 0.3;
+              ctx.fillStyle = p.color;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size * 1.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      function createFirework() {
+        const x = 50 + Math.random() * (width - 100);
+        const y = 50 + Math.random() * (height * 0.5);
+        const firework = new Firework(x, y);
+        firework.explode();
+        fireworks.push(firework);
+
+        setTimeout(() => {
+          fireworks = fireworks.filter((f) => f.update());
+        }, 2500);
+      }
+
+      // ========== ANIMASI UTAMA ==========
+      let lastFireworkTime = 0;
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        if (growProgress < 1) {
+          growProgress += 0.007;
+          if (growProgress >= 1) {
+            growProgress = 1;
+          }
+        }
+
+        swayAngle += 0.02 * swayDirection;
+        if (swayAngle > 0.5) swayDirection = -1;
+        if (swayAngle < -0.5) swayDirection = 1;
+
+        // Gambar bunga KIRI
+        const leftStemEnd = drawStem(
+          leftFlowerX,
+          growProgress,
+          swayAngle,
+          true,
+        );
+        drawFlower(
+          leftStemEnd.x,
+          leftStemEnd.y,
+          growProgress,
+          swayAngle,
+          leftFlowerColor,
+          true,
+        );
+
+        // Gambar bunga KANAN
+        const rightStemEnd = drawStem(
+          rightFlowerX,
+          growProgress,
+          swayAngle,
+          false,
+        );
+        drawFlower(
+          rightStemEnd.x,
+          rightStemEnd.y,
+          growProgress,
+          -swayAngle,
+          rightFlowerColor,
+          false,
+        );
+
+        if (growProgress > 0.3) {
+          if (Date.now() - lastFireworkTime > 900) {
+            createFirework();
+            lastFireworkTime = Date.now();
+          }
+
+          for (let i = 0; i < fireworks.length; i++) {
+            const alive = fireworks[i].update();
+            fireworks[i].draw();
+            if (!alive) {
+              fireworks.splice(i, 1);
+              i--;
+            }
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Buat beberapa kembang api awal
+      setTimeout(() => {
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => createFirework(), i * 400);
+        }
+      }, 500);
+
+      // ========== RESPONSIVE: UPDATE SAAT RESIZE ==========
+      window.addEventListener("resize", () => {
+        resizeCanvas();
+        updateSizes();
+        leftFlowerX = width * 0.08;
+        rightFlowerX = width * 0.92;
+
+        // Reset posisi bunga agar tidak kacau
+        growProgress = Math.min(growProgress, 1);
+      });
+
+      // Fade-in kartu
+      document.querySelector(".bunga-card").style.animation =
+        "fadeInUp 0.8s ease";
+    </script>
+  </body>
+</html>
